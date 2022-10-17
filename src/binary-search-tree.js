@@ -16,10 +16,7 @@ class BinarySearchTree {
 
   root(data) {
 
-
-
-    // throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    this.root = data;
   }
 
   add(data) {
