@@ -29,83 +29,96 @@ function removeKFromList(l, k) {
       this.head = null;
       this.length = 0;
     }
+  }
 
-    get(position) {
-      if (position < 0 || this.length <= position ) {
-        return;
-      }
+  let list = new LinkedList();
 
-      let current = this.head;
+  list.head = l;
+
+  let listCurrent = list.head;
+
+  function getLength(list) {
+    while (listCurrent) {
+      list.length++;
+      listCurrent = listCurrent.next
+    }
+    return list.length;
+  }
+
+  let listLength = getLength(list);
+
+  function removeAt(position) {
+    if (position < 0 || list.length <= position ) {
+      return null;
+    }
+
+    let current = list.head;
+
+    if (position === 0) {
+      list.head = current.next;
+    } else {
+      let prev = null;
       let index = 0;
 
       while (index < position) {
+        prev = current;
         current = current.next;
         index++;
       }
 
-      return current.value;
+      prev.next = current.next;
     }
 
-    removeAt(position) {
-      if (position < 0 || position >= this.length) {
-        return null;
-      }
-
-      let current = this.head;
-
-      if (position === 0) {
-        this.head = current.next;
-      } else {
-        let prev = null;
-        let index = 0;
-
-        while (index < position) {
-          prev = current;
-          current = current.next;
-          index++;
-        }
-
-        prev.next = current.next;
-      }
-
-      this.length--;
-      return current.value;
-    }
-
-    remove(element) {
-      this.removeAt( this.indexOf(element) );
-    }
-
-    indexOf(element) {
-      let current = this.head;
-      let index = 0;
-
-      while (current) {
-        if (current.value === element) {
-          return index;
-        }
-
-        current = current.next;
-        index++;
-      }
-
-      return -1;
-    }
-
-
-
-
+    list.length--;
+    return current.value;
   }
 
-  // throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+  function indexOf(element) {
+    let current = list.head;
+    let index = 0;
 
+    while (current) {
+      if (current.value === element) {
+        return index;
+      }
 
+      current = current.next;
+      index++;
+    }
 
+    return -1;
+  }
 
+  let index = indexOf(k);
+  removeAt(index);
 
+  index = indexOf(k);
+  removeAt(index);
+
+  return list.head;
 }
 
 module.exports = {
   removeKFromList
 };
+
+
+// {
+//   "next": {
+//     "next": {
+//       "next": {
+// -        "next": {
+// -          "next": {
+// -            "next": [null]
+// -            "value": 5
+// -          }
+// -          "value": 4
+// -        }
+// -        "value": 3
+//       }
+// -      "value": 3
+//     }
+//     "value": 2
+//   }
+//   "value": 1
+// }
